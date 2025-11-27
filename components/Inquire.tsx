@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI } from "@google/genai";
 import { ReportParameters, ChatMessage, CopilotOption } from '../types';
 import { runCopilotAnalysis, generateSearchGroundedContent } from '../services/nexusService';
-import { SearchIcon, BrainCircuit, MessageSquareIcon, Zap } from './Icons';
+import { BrainCircuit, Zap } from './Icons';
 
 interface InquireProps {
     params: ReportParameters;
@@ -115,7 +114,7 @@ const Inquire: React.FC<InquireProps> = ({ params, onApplySuggestions }) => {
     return (
         <div className="h-full flex flex-col bg-white border-l border-slate-200 shadow-xl relative font-sans">
             {/* Header */}
-            <div className="p-4 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 flex items-center gap-3">
+            <div className="p-4 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 flex items-center gap-3 flex-shrink-0">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-bronze-700 to-bronze-600 flex items-center justify-center text-white font-bold shadow-md">
                     BW
                 </div>
@@ -179,21 +178,21 @@ const Inquire: React.FC<InquireProps> = ({ params, onApplySuggestions }) => {
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Actions (Floating if needed, but here static at bottom) */}
-            <div className="p-2 bg-slate-50 border-t border-slate-100 flex gap-2 overflow-x-auto">
-                <button onClick={() => runQuickAction('clarify')} className="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 hover:bg-bronze-50 hover:text-bronze-700 transition-colors shadow-sm">
+            {/* Quick Actions */}
+            <div className="px-4 py-3 bg-slate-50 border-t border-slate-100 flex gap-2 overflow-x-auto flex-shrink-0 scrollbar-hide">
+                <button onClick={() => runQuickAction('clarify')} className="flex-shrink-0 px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 hover:bg-bronze-50 hover:text-bronze-700 transition-colors shadow-sm whitespace-nowrap">
                     ✨ Clarify Objective
                 </button>
-                <button onClick={() => runQuickAction('partners')} className="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 hover:bg-bronze-50 hover:text-bronze-700 transition-colors shadow-sm">
+                <button onClick={() => runQuickAction('partners')} className="flex-shrink-0 px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 hover:bg-bronze-50 hover:text-bronze-700 transition-colors shadow-sm whitespace-nowrap">
                     🤝 Find Partners
                 </button>
-                <button onClick={() => runQuickAction('risk')} className="whitespace-nowrap px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 hover:bg-bronze-50 hover:text-bronze-700 transition-colors shadow-sm">
+                <button onClick={() => runQuickAction('risk')} className="flex-shrink-0 px-3 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 hover:bg-bronze-50 hover:text-bronze-700 transition-colors shadow-sm whitespace-nowrap">
                     🛡️ Check Risks
                 </button>
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-white border-t border-slate-200">
+            <div className="p-4 bg-white border-t border-slate-200 flex-shrink-0">
                 <div className="relative">
                     <input 
                         type="text" 

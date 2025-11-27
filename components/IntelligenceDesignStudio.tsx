@@ -267,7 +267,7 @@ export const IntelligenceDesignStudio: React.FC<DesignStudioProps> = ({
   return (
     <div className="flex h-full w-full bg-stone-50 text-stone-800 font-sans overflow-hidden">
       
-      {/* Main Content Area */}
+      {/* Main Content Area - Width adjusted to allow larger sidebar */}
       <div className="flex-1 overflow-y-auto h-full" ref={mainScrollRef} id="studio-scroll-container">
         <div className="max-w-7xl mx-auto p-6 space-y-6">
           
@@ -429,8 +429,8 @@ export const IntelligenceDesignStudio: React.FC<DesignStudioProps> = ({
         </div>
       </div>
 
-      {/* Sidebar - Fixed Live AI Support */}
-      <div className="w-80 flex-shrink-0 border-l border-stone-200 bg-white shadow-xl z-20 hidden xl:block h-full overflow-hidden">
+      {/* Sidebar - Fixed Live AI Support - Expanded Width */}
+      <div className="w-[450px] flex-shrink-0 border-l border-stone-200 bg-white shadow-xl z-20 hidden xl:block h-full overflow-hidden transition-all duration-300">
         <Inquire params={params} />
       </div>
     </div>
