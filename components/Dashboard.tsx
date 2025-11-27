@@ -2,13 +2,14 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { GlobeIcon, SearchIcon, CpuIcon, ExternalLinkIcon, SymbiosisIcon, AnalyzeIcon } from './Icons';
-import { fetchLiveInsights, fetchIntelligenceForCategory } from '../services/geminiService';
+import { fetchIntelligenceForCategory } from '../services/geminiService';
 import { getMultiAgentOrchestrator } from '../services/MultiAgentOrchestrator';
 import { AgentHealthStatus, DashboardIntelligence, SymbiosisContext } from '../types';
 import { TradeDisruptionWidget } from './TradeDisruptionAnalyzer';
 import { MarketDiversificationWidget } from './MarketDiversificationDashboard';
 import { DASHBOARD_CATEGORIES } from '../constants';
 import Loader from './common/Loader';
+import GlobalPartnerSearch from './GlobalPartnerSearch';
 
 interface Props {
   onAnalyze: (item: any) => void;
@@ -158,6 +159,9 @@ const Dashboard: React.FC<Props> = ({ onAnalyze, onStartSymbiosis }) => {
     <div className="h-full bg-slate-50 p-6 overflow-y-auto">
       <div className="max-w-7xl mx-auto space-y-6">
         
+        {/* Global Partner Search Widget */}
+        <GlobalPartnerSearch />
+
         {/* Agent Network Status Panel */}
         <div className="bg-slate-900 rounded-xl p-6 text-white shadow-lg">
             <div className="flex items-center gap-3 mb-4">

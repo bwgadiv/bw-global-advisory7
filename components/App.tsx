@@ -5,10 +5,10 @@ import Dashboard from './components/Dashboard';
 import CommandCenter from './components/CommandCenter';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import { ReportParameters, UserProfile } from './types';
-import { NexusLogo, GlobeIcon, LayoutDashboardIcon, ReportIcon, ShieldCheckIcon, Layers } from './components/Icons';
+import { NexusLogo, GlobeIcon, LayoutDashboardIcon, ReportIcon, ShieldCheckIcon } from './components/Icons';
 import { LandingPage } from './components/LandingPage';
 import useEscapeKey from './hooks/useEscapeKey';
-import ReportGenerator from './components/ReportGenerator';
+import { LegalInfoHub } from './components/LegalInfoHub';
 
 const initialParams: ReportParameters = {
     reportName: '',
@@ -52,16 +52,19 @@ const initialParams: ReportParameters = {
     expansionTimeline: '12-18 Months'
 };
 
-type ViewMode = 'command-center' | 'intelligence-system' | 'report-generator' | 'live-feed' | 'admin-dashboard';
+type ViewMode = 'command-center' | 'intelligence-system' | 'live-feed' | 'admin-dashboard' | 'legal-hub';
 
 const App: React.FC = () => {
     const [params, setParams] = useState<ReportParameters>(initialParams);
     const [viewMode, setViewMode] = useState<ViewMode>('intelligence-system');
     const [hasEntered, setHasEntered] = useState(false);
     const [savedReports, setSavedReports] = useState<ReportParameters[]>([]);
+    const [legalSection, setLegalSection] = useState<string | undefined>(undefined);
     
     const handleEscape = useCallback(() => {
-        if (viewMode !== 'command-center' && viewMode !== 'admin-dashboard') {
+        if (viewMode !== 'command-center' && viewMode !== 'admin-dashboard' && viewMode !== 'legal-hub') {
+            setViewMode('command-center');
+        } else if (viewMode === 'legal-hub') {
             setViewMode('command-center');
         }
     }, [viewMode]);
@@ -107,8 +110,14 @@ const App: React.FC = () => {
         setSavedReports(prev => prev.filter(r => r.reportName !== reportName));
     };
 
+    const openLegal = (section?: string) => {
+        setLegalSection(section);
+        setViewMode('legal-hub');
+        setHasEntered(true); // Ensure we bypass landing if accessed directly
+    };
+
     if (!hasEntered) {
-        return <LandingPage onEnter={() => setHasEntered(true)} />;
+        return <LandingPage onEnter={() => setHasEntered(true)} onOpenLegal={openLegal} />;
     }
 
     if (viewMode === 'admin-dashboard') {
@@ -123,6 +132,10 @@ const App: React.FC = () => {
                 </button>
             </div>
         );
+    }
+
+    if (viewMode === 'legal-hub') {
+        return <LegalInfoHub onBack={() => setViewMode('command-center')} initialSection={legalSection} />;
     }
 
     return (
@@ -152,17 +165,6 @@ const App: React.FC = () => {
                     >
                         <ReportIcon className="w-4 h-4" />
                         Studio
-                    </button>
-                    <button 
-                        onClick={() => setViewMode('report-generator')}
-                        className={`flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-bold transition-all ${
-                            viewMode === 'report-generator' 
-                            ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-200' 
-                            : 'text-stone-500 hover:text-stone-800'
-                        }`}
-                    >
-                        <Layers className="w-4 h-4" />
-                        Architect
                     </button>
                     <button 
                         onClick={() => setViewMode('command-center')}
@@ -227,21 +229,6 @@ const App: React.FC = () => {
                         onDeleteReport={deleteReport}
                     />
                 )}
-                {viewMode === 'report-generator' && (
-                    <ReportGenerator
-                        params={params}
-                        onParamsChange={handleParamsChange}
-                        onProfileUpdate={handleProfileUpdate}
-                        onReportUpdate={() => {}}
-                        isGenerating={false}
-                        onApplySuggestions={() => {}}
-                        savedReports={savedReports}
-                        onSaveReport={saveReport}
-                        onLoadReport={loadReport}
-                        onDeleteReport={deleteReport}
-                        onScopeComplete={() => {}}
-                    />
-                )}
                 {viewMode === 'live-feed' && (
                     <div className="h-full overflow-hidden">
                         <Dashboard 
@@ -257,12 +244,13 @@ const App: React.FC = () => {
                 <div className="flex items-center gap-4">
                     <span className="hover:text-stone-600 transition-colors cursor-default">&copy; {new Date().getFullYear()} BW Global Advisory</span>
                     <span className="w-px h-3 bg-stone-300"></span>
-                    <span className="hover:text-stone-600 transition-colors cursor-default">ABN: 42 600 000 000</span>
+                    <span className="hover:text-stone-600 transition-colors cursor-default">ABN: 55 978 113 300</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <span className="hidden md:inline text-stone-300">Nexus Intelligence OS v4.0.1</span>
-                    <span className="w-px h-3 bg-stone-300 hidden md:inline"></span>
-                    <span className="hover:text-stone-600 transition-colors cursor-default">Authorized Access Only</span>
+                    <button onClick={() => openLegal('privacy')} className="hover:text-stone-600 transition-colors">Privacy</button>
+                    <button onClick={() => openLegal('terms')} className="hover:text-stone-600 transition-colors">Terms</button>
+                    <span className="w-px h-3 bg-stone-300"></span>
+                    <span className="text-stone-300">Nexus Intelligence OS v4.0.1</span>
                 </div>
             </footer>
         </div>
