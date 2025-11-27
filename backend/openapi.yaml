@@ -1,0 +1,94 @@
+
+openapi: 3.0.3
+info:
+  title: BW Nexus AI API
+  description: Economic Intelligence OS Orchestration Layer
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /cases:
+    post:
+      summary: Initialize a new intelligence mission
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCase'
+      responses:
+        '201':
+          description: Case created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CaseResponse' }
+
+  /cases/{id}/calibrate:
+    post:
+      summary: Step 3.5 - Submit Mission Calibration inputs
+      description: Injects capabilities and constraints to trigger heavy engines.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalibrationData'
+      responses:
+        '200':
+          description: Engines triggered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId: { type: string }
+                  status: { type: string }
+
+  /cases/{id}/status:
+    get:
+      summary: Poll for engine results (SPI, IVAS, Matches)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  progress: { type: integer }
+                  results: { type: object }
+
+components:
+  schemas:
+    NewCase:
+      type: object
+      required: [persona, intent]
+      properties:
+        persona: { type: object }
+        intent: { type: string }
+    CaseResponse:
+      type: object
+      properties:
+        id: { type: string }
+        status: { type: string }
+    CalibrationData:
+      type: object
+      properties:
+        problem_architecture: { type: string }
+        capabilities_have: 
+          type: array
+          items: { type: string }
+        capabilities_need:
+          type: array
+          items: { type: string }
+        constraints: { type: object }

@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BW Global Advisory | Intelligence Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                serif: ['Merriweather', 'serif'],
+              },
+              colors: {
+                stone: {
+                    50: '#fafaf9',
+                    100: '#f5f5f4',
+                    200: '#e7e5e4',
+                    300: '#d6d3d1',
+                    400: '#a8a29e',
+                    500: '#78716c',
+                    600: '#57534e',
+                    700: '#44403c',
+                    800: '#292524', // Premium Dark Grey
+                    900: '#1c1917',
+                },
+                bronze: {
+                   50: '#fffbf0',
+                   100: '#fef2cd',
+                   200: '#fde396',
+                   300: '#fccc59',
+                   400: '#fbb024',
+                   500: '#f59e0b', 
+                   600: '#d97706',
+                   700: '#b45309', // Core Bronze
+                   800: '#92400e',
+                   900: '#78350f'
+                }
+              },
+              animation: {
+                'fade-in': 'fadeIn 0.6s ease-out forwards',
+                'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              },
+              keyframes: {
+                fadeIn: {
+                  '0%': { opacity: '0' },
+                  '100%': { opacity: '1' },
+                },
+                fadeInUp: {
+                  '0%': { opacity: '0', transform: 'translateY(15px)' },
+                  '100%': { opacity: '1', transform: 'translateY(0)' },
+                }
+              }
+            },
+          },
+        }
+    </script>
+    <style>
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d6d3d1;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a8a29e;
+      }
+      
+      /* Premium Inputs */
+      .premium-input {
+        transition: all 0.3s ease;
+        border-bottom: 2px solid #e7e5e4;
+        background: transparent;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+        padding-left: 0;
+      }
+      .premium-input:focus {
+        border-color: #b45309; /* Bronze-700 */
+        ring: 0;
+        outline: none;
+        box-shadow: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.0",
+    "jspdf": "https://aistudiocdn.com/jspdf@^2.5.1",
+    "html2canvas": "https://aistudiocdn.com/html2canvas@^1.4.1",
+    "express": "https://aistudiocdn.com/express@^5.1.0",
+    "cors": "https://aistudiocdn.com/cors@^2.8.5",
+    "path": "https://aistudiocdn.com/path@^0.12.7",
+    "fs": "https://aistudiocdn.com/fs@^0.0.1-security",
+    "crypto": "https://aistudiocdn.com/crypto@^1.0.1",
+    "node-fetch": "https://aistudiocdn.com/node-fetch@^3.3.2",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
+    "pg": "https://aistudiocdn.com/pg@^8.16.3",
+    "url": "https://aistudiocdn.com/url@^0.11.4"
+  }
+}
+</script>
+</head>
+  <body class="bg-stone-50 text-stone-800">
+    <div id="root"></div>
+  </body>
+</html>
